@@ -15,7 +15,7 @@ Thumbs.db
 .idea/
 
 # Data & outputs
-*.csv
+
 *.log
 *.ckpt
 *.pt
