@@ -13,6 +13,9 @@ demonstrates:
 A sports-data scenario is used to make the scaling concepts more intuitive
 and easier to reason about.
 
+Each training example represents one NBA team’s performance in a single game,
+labeled as a win or loss.
+
 ## Assignment Goals
 - Start from a single-process training loop
 - Add gradient accumulation to handle memory constraints
