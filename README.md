@@ -46,12 +46,14 @@ aise26-18d4-distributed-training-sports/
 ├── SCALE_PLAN.md
 ├── KNOWN_ISSUES.md
 ├── MY_NOTES.md 
+├── plot_metrics.py
 ├── data/
 │   └── nba_team_games.csv 
 │   └── metrics.csv         
 └── screenshots/           
    └── colab_train.png
    └── torchrun_node2.png
+   └── loss_curve.png
 ```
 ---
 
@@ -60,6 +62,17 @@ aise26-18d4-distributed-training-sports/
 - DDP run logs `world_size = 2`
 - Effective batch size increases correctly with gradient accumulation
 - Evidence is captured in `metrics.csv`
+
+---
+
+## Training Loss Curve
+
+![Loss Curve](screenshots/loss_curve.png)
+
+This chart shows training loss over steps from `data/metrics.csv`.
+While the model and dataset are intentionally simple, the curve confirms
+that the training loop runs correctly, logs metrics, and applies gradient
+accumulation and distributed configuration as expected.
 
 ---
 
