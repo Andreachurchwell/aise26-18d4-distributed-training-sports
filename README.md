@@ -17,10 +17,11 @@ distributed training mechanics rather than model complexity.
 - Supports:
   - single-process CPU training
   - multi-process DDP (`world_size=2`)
-  - gradient accumulation
-- Logs training metrics to `metrics.csv` for auditing
+  - gradient accumulation (`accum_steps`)
+- Logs training evidence to `metrics.csv`
 
 The model and data are intentionally simple so the focus stays on **distributed training correctness**.
+
 
 ---
 
@@ -33,6 +34,25 @@ The model and data are intentionally simple so the focus stays on **distributed 
 - `REPRO.md` – Reproducibility instructions
 - `KNOWN_ISSUES.md` – Distributed training failure modes and mitigations
 
+## Repo Structure
+```
+aise26-18d4-distributed-training-sports/
+├── train.py
+├── ddp_spawn.py
+├── metrics.csv
+├── requirements.txt
+├── README.md
+├── REPRO.md
+├── SCALE_PLAN.md
+├── KNOWN_ISSUES.md
+├── MY_NOTES.md (from my point of view)
+├── data/
+│   └── nba_team_games.csv  (did not push to github)
+│   └── metrics.csv         (did not push to github)
+└── screenshots/           
+   └── colab_train.png
+   └── torchrun_node2.png
+```
 ---
 
 ## Key Results
