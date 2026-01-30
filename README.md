@@ -1,33 +1,53 @@
-# AISE W18D4 – Distributed Training (Sports Data)
+# W18D4 – Scale-Ready Distributed Training (Sports Example)
 
-## Overview
-This repository is for the Week 18 Day 4 after-class assignment focused on
-**distributed training concepts**.
+## Goal
+The goal of this assignment was to build a **scale-ready training loop** that:
+- starts as a single-process script
+- can be launched with **Distributed Data Parallel (DDP)**
+- supports **gradient accumulation**
+- produces **reviewable scaling evidence**, even when run locally
 
-The goal of this project is to build a **scale-ready training loop** that
-demonstrates:
-- Data Distributed Parallel (DDP)
-- Gradient accumulation
-- Reproducibility and scaling evidence
+This repo uses a **sports-inspired tabular dataset** to predict a win outcome and focuses on
+distributed training mechanics rather than model complexity.
 
-A sports-data scenario is used to make the scaling concepts more intuitive
-and easier to reason about.
+---
 
-Each training example represents one NBA team’s performance in a single game,
-labeled as a win or loss.
+## What This Project Does
+- Trains a small MLP on tabular “NBA-style” game features
+- Supports:
+  - single-process CPU training
+  - multi-process DDP (`world_size=2`)
+  - gradient accumulation
+- Logs training metrics to `metrics.csv` for auditing
 
-## Assignment Goals
-- Start from a single-process training loop
-- Add gradient accumulation to handle memory constraints
-- Add DDP structure to enable data parallelism
-- Document scaling decisions, risks, and known distributed failure modes
+The model and data are intentionally simple so the focus stays on **distributed training correctness**.
 
-## Evidence Artifacts
-This repository will include:
-- `metrics.csv` – training metrics and effective batch size
-- `SCALE_PLAN.md` – scaling strategy and decision rationale
-- `REPRO.md` – reproducibility instructions
-- `KNOWN_ISSUES.md` – common distributed training failures and mitigations
+---
 
-## Status
-Project setup and planning phase.
+## Files Overview
+- `train.py` – Main training script (single-process + DDP-ready)
+- `ddp_spawn.py` – Alternate spawn launcher (used during Windows testing)
+- `metrics.csv` – Scaling evidence (includes `world_size` and effective batch size)
+- `data/nba_team_games.csv` – Synthetic sports dataset used for training
+- `SCALE_PLAN.md` – DDP vs FSDP vs TP/PP decision reasoning
+- `REPRO.md` – Reproducibility instructions
+- `KNOWN_ISSUES.md` – Distributed training failure modes and mitigations
+
+---
+
+## Key Results
+- Single-process run logs `world_size = 1`
+- DDP run logs `world_size = 2`
+- Effective batch size increases correctly with gradient accumulation
+- Evidence is captured in `metrics.csv`
+
+---
+
+## Notes on Environment
+Multi-process DDP failed on my Windows environment due to known PyTorch
+libuv / Gloo networking limitations.  
+The same code ran successfully on **Linux (Google Colab)**, and the resulting
+metrics are committed as the scaling evidence.
+
+This reflects real-world distributed training constraints and is documented in
+`KNOWN_ISSUES.md`.

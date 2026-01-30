@@ -11,14 +11,14 @@ def _worker(rank: int, world_size: int, argv):
     os.environ["WORLD_SIZE"] = str(world_size)
     os.environ["LOCAL_RANK"] = str(rank)
 
-    # Don't try to be clever; be explicit
+ 
     os.environ["GLOO_SOCKET_IFNAME"] = "Wi-Fi"
 
     # Import your train() entrypoint from train.py
     import train as train_module
 
     # Reuse the same CLI args parsing by calling train_module.train(args)
-    # We’ll parse args the same way train.py does:
+    # parses args the same way train.py does:
     args = train_module.parse_args()
 
     # Force cpu if requested in argv

@@ -8,9 +8,6 @@
 - Fixed random seeds are used
 - Training is run via a single-process loop first, then extended to DDP
 
-## Notes
-Commands and configuration details will be added as the training loop
-is finalized.
 
 ## DDP Note (Windows)
 Multi-process DDP launch fails on my Windows environment due to:
@@ -20,3 +17,11 @@ Multi-process DDP launch fails on my Windows environment due to:
 
 Mitigation: run the same DDP command on Linux (Colab or WSL) and commit the
 resulting `metrics.csv` as the scaling evidence artifact.
+
+## Linux / Colab Repro
+
+```bash
+pip install -r requirements.txt
+python train.py --cpu
+torchrun --standalone --nproc_per_node=2 train.py --cpu
+``
