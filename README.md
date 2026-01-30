@@ -45,10 +45,10 @@ aise26-18d4-distributed-training-sports/
 ├── REPRO.md
 ├── SCALE_PLAN.md
 ├── KNOWN_ISSUES.md
-├── MY_NOTES.md (from my point of view)
+├── MY_NOTES.md 
 ├── data/
-│   └── nba_team_games.csv  (did not push to github)
-│   └── metrics.csv         (did not push to github)
+│   └── nba_team_games.csv 
+│   └── metrics.csv         
 └── screenshots/           
    └── colab_train.png
    └── torchrun_node2.png
