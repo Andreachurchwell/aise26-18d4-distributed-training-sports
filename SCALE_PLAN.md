@@ -17,7 +17,7 @@ As additional seasons are added, the number of games grows linearly.
 This increases dataset size but does not significantly increase
 model size.
 
-Data Distributed Parallel (DDP) is the natural first scaling strategy
+Distributed Data Parallel (DDP) is the natural first scaling strategy
 because each worker can process different games independently while
 synchronizing gradients.
 
@@ -43,10 +43,13 @@ configurations and ensures consistent training behavior.
 
 ---
 
-## When DDP Is No Longer Enough
-If model size or feature dimensionality increases significantly,
-Fully Sharded Data Parallel (FSDP) may be required to shard model
-parameters and optimizer state across devices.
+## When DDP Is No Longer Enough (Decision Triggers)
 
-Pipeline or tensor parallelism would be considered only if model size
-exceeds single-device memory limits even with sharding.
+### Move to FSDP if memory is the blocker
+Use FSDP if the model + optimizer state cannot fit comfortably on a single
+device (OOM errors), because FSDP shards parameters/gradients/optimizer state.
+
+### Consider TP/PP only if a single model layer cannot fit on one device
+Tensor parallelism (TP) or pipeline parallelism (PP) are usually for very large
+models (e.g., huge transformers). This project’s model is small, so TP/PP would
+only be relevant if the model grows dramatically beyond single-device limits.

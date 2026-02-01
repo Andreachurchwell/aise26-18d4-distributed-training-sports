@@ -47,6 +47,7 @@ aise26-18d4-distributed-training-sports/
 ├── KNOWN_ISSUES.md
 ├── MY_NOTES.md 
 ├── plot_metrics.py
+├── aise26_18d4.ipynb
 ├── data/
 │   └── nba_team_games.csv 
 │   └── metrics.csv         
